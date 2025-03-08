@@ -1,4 +1,4 @@
-from GPAPlannerAPP.auth import create_app
+from GPAPlannerAPP.Auth import create_app
 from flask import Flask, render_template
 
 app = create_app()
@@ -7,4 +7,4 @@ app = create_app()
 
 
 if __name__ == '__main__':
-    app.run(debug=True, use_reloader=False)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT",5000)))
