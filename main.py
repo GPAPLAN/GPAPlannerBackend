@@ -1,4 +1,4 @@
-from GPAPlannerAPP import create_app
+from GPAPlannerAPP.auth import create_app
 from flask import Flask, render_template
 
 app = create_app()
