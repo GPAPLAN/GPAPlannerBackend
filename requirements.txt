@@ -1,4 +1,7 @@
 flask
+gunicorn
+werkzeug
+google-api-python-client
 flask_sqlalchemy
 flask_cors
 email-validator
