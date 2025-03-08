@@ -1,0 +1,99 @@
+{% extends "base.html" %} {% block title %}info page{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA Planner</title>
+    <link rel="stylesheet" href="static/LandingStyles.css">
+</head>
+<body>
+<style>
+body{
+    background-image: url()
+}
+    
+</style>
+
+    <section id="about">
+        <div class="container">
+            <h2>About GPA Planner</h2>
+            <p>GPA Planner is a tool designed by students for students to help manage their academic performance effectively. With GPA Planner, you can improve your GPA, predict your class grades, create and store notes, and get video homework help.</p>
+        </div>
+    </section>
+
+
+    <section id="features">
+        <div class="container">
+            <h2>Features</h2>
+            <div class="feature">
+                <img src="static/calculator.png" alt="Calculator Icon">
+                <h3>GPA Calculator</h3>
+                <p>Calculate the grades needed to get your desired GPA with the GPA Planner's calculator. Simply input your GPA, Desired GPA, and credits left.</p>
+            </div>
+            <div class="feature">
+                <img src="static/grade.png" alt="Grade Icon">
+                <h3>Class Grade Estimator</h3>
+                <p>Effortlessly keep track of your grades for each course, aids students in predicting their final grades in their courses</p>
+            </div>
+            <div class="feature">
+                <img src="static/video.png" alt="Video Icon">
+                <h3>Homework Video Search</h3>
+                <p>Get help with your assignments with a simple search, our video search tool will allow you to easily find a video meant to help you finish your assignments.</p>
+            </div>
+            <div class="feature">
+                <img src="static/notes.png" alt="Notes Icon">
+                <h3>Class Notes</h3>
+                <p>Allows users to create, organize, and share class notes amongst their peers easily and all in one place.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="reviews">
+        <div class="container">
+            <h2>User Reviews</h2>
+            <div class="review">
+                <div class="user-info">
+                    <img src="static/user.png" alt="User Profile">
+                    <div>
+                        <p><strong>Billy Joe</strong></p>
+                        <p>Bunker Hill</p>
+                    </div>
+                </div>
+                <p>"GPA Planner has been a lifesaver for me. It's so easy to use and has helped me stay in school and get better grades. Highly recommended!"</p>
+            </div>
+            <div class="review">
+                <div class="user-info">
+                    <img src="static/user.png" alt="User Profile">
+                    <div>
+                        <p><strong>Wendy Willams</strong></p>
+                        <p>Umass Boston</p>
+                    </div>
+                </div>
+                <p>"I love how GPA Planner allows me to calculate the grades I will get before I get them. It's been a huge help in improving my grades and stay on track with my goals."</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <p>If you have any questions or feedback, feel free to reach out to us:</p>
+            <ul>
+                <li>Email: gpaplanner@gmail.com</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 GPA Planner</p>
+        </div>
+    </footer>
+</body>
+</html>
+ {% endblock %}

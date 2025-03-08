@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'programStyle.css')}}">
+<body >
+  <style>
+    .bg-orange{
+      background-color: rgb(255, 72, 0);
+    }
+
+    body{
+    background-image: url('static/pexels-steve-1789968.jpg');
+
+    .navbar-border{
+        border-bottom: 3px solid black;
+      }
+  }
+  </style>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-orange navbar-border">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbar"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+      <div class="navbar-nav">
+        {% if current_user.is_authenticated %}
+        <h3 class="whitefont"> Hello {{ current_user.first_name }}  {{ current_user.last_name }}!</h1>
+        <a class="nav-item nav-link" id="home" href="/">Home</a>
+        <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+        <a class="nav-item nav-link" id="program" href="/program">GPA Planner</a>
+        <a class="nav-item nav-link" id="rapidtable" href="/rapidtable">Class Grade Estimator</a>
+        <a class="nav-item nav-link" id="notes" href="/notes">My Class Notes</a>
+        <a class="nav-item nav-link" id="youtube" href="/search">Subject Video Search</a> 
+        <a class="nav-item nav-link" id="youtube" href="/info_page">Info</a>
+        <a class="nav-item nav-link" id="youtube" href="/account">My Account</a>
+        <a class="nav-item nav-link" id="calendar" href="/calendar">My Calendar</a>
+
+
+        {% else %}
+        <a class="nav-item nav-link" id="login" href="/login">Login</a>
+        <a class="nav-item nav-link" id="signUp" href="/signup">Sign Up</a>
+        <a class="nav-item nav-link" id="resetpasswordRequest" href="/reset_password_request">reset password</a>
+
+        {% endif %}
+      
+      </div>
+    </div>
+  </nav>
+
+  {%with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+    {% if category == 'error'%}
+    <div class="alert alert-danger alert-dismissable fade show" role ="alert">
+      {{ message }}
+      <button type ="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alert-dismissable fade show" role ="alert">
+      {{ message }}
+      <button type ="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %}
+    {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+
+<body class="backgroundImage">
+<div class="container" id="placement">
+<form class = "container"action= '/program' method="POST">
+    <h3 align="center">Academic Performance planner</h3>
+    <div class="form-group">
+      <label for="current_gpa">Enter your current GPA</label>
+      <input
+        type="text"
+        class = "form-control"
+        id="current_gpa"
+        name="current_gpa"
+        placeholder="Enter your current GPA" />
+    </div>
+    <div class="form-group">
+        <label for="completed_credits">completed credits</label>
+        <input
+          type="text"
+          class="form-control"
+          id="completed_credits"
+          name="completed_credits"
+          placeholder="completed credits"
+        />
+      </div>
+      <div class="form-group">
+        <label for="goal_gpa">goal gpa</label>
+        <input
+          type="text"
+          id="goal_gpa"
+          class="form-control"
+          name="goal_gpa"
+          placeholder="Enter goal gpa"
+        />
+      </div>
+      <div class="form-group">
+        <label for="remaining_credits">remaining credits</label>
+        <input
+          type="text"
+          id="remaining_credits"
+          class="form-control"
+          name="remaining_credits"
+          placeholder="remaining credits"
+        />
+      </div>
+      <br />
+      <button type="submit" value="Calculate"class="btn btn-primary">Calculate</button>
+    </form>
+</div>
+</body>
+
+
+

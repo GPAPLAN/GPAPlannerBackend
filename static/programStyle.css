@@ -1,0 +1,25 @@
+.container {
+
+   /* width: 100%; */
+    max-width: 400px;
+    
+   padding: 5px ;
+   /* box-shadow:0 4px 8px rgba(0,0,0,0.1); */
+     background-color: #f8f9fa;  
+    top: 80px;
+    
+ 
+}
+ body{
+    background-image: url('static/pexels-steve-1789968.jpg');
+    background-size: cover;
+    
+ }
+
+/* 
+#placement{
+position: relative;
+top: 100px;
+}
+
+*/

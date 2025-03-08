@@ -1,0 +1,210 @@
+{% extends "base.html" %} {% block title %}Changed{% endblock %}
+
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event Calendar</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .calendar {
+        max-width: 600px;
+        margin: 20px auto;
+    }
+    .calendar-header {
+        text-align: center;
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .calendar-header h2 {
+        margin: 0;
+    }
+    .calendar-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .calendar-table th, .calendar-table td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+    .calendar-table td {
+        cursor: pointer;
+    }
+    .calendar-table td:hover {
+        background-color: #f0f0f0;
+    }
+    .event-modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        z-index: 1000;
+    }
+    .event-modal input[type="text"] {
+        width: calc(100% - 20px);
+        margin-bottom: 10px;
+        padding: 5px;
+    }
+    .event-modal button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 8px 15px;
+        cursor: pointer;
+    }
+    .btn-group {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+    .btn-group button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 8px 15px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<div class="calendar">
+    <div class="calendar-header">
+        <div class="btn-group">
+            <button id="prevMonthBtn">&lt;</button>
+            <h2 id="currentMonth"></h2>
+            <button id="nextMonthBtn">&gt;</button>
+        </div>
+    </div>
+    <table class="calendar-table">
+        <thead>
+            <tr>
+                <th>Sun</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+            </tr>
+        </thead>
+        <tbody id="calendarBody">
+           
+        </tbody>
+    </table>
+</div>
+
+<div class="event-modal" id="eventModal">
+    <h2>Add Event</h2>
+    <input type="text" id="eventInput" placeholder="Enter event">
+    <button id="saveEventBtn">Save</button>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const calendarBody = document.getElementById('calendarBody');
+        const eventModal = document.getElementById('eventModal');
+        const eventInput = document.getElementById('eventInput');
+        const saveEventBtn = document.getElementById('saveEventBtn');
+        const prevMonthBtn = document.getElementById('prevMonthBtn');
+        const nextMonthBtn = document.getElementById('nextMonthBtn');
+        const currentMonthElement = document.getElementById('currentMonth');
+        
+        let currentDate = new Date(2023, 0); 
+
+        
+        generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
+
+        
+        function showEventModal(day) {
+            eventInput.value = ''; 
+            eventModal.style.display = 'block';
+            saveEventBtn.onclick = function() {
+                const event = eventInput.value;
+                if (event.trim() !== '') {
+                    const eventDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${day}`;
+                    fetch('/add_event', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({title:event, date: eventDate})
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(`Event "${event}" saved for ${day}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()}.`); // You can save this to a database using AJAX
+                        eventModal.style.display = 'none';
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error saving event');
+                    });
+                } else {
+                    alert('Please enter an event.');
+                }
+            };
+        }
+
+        
+        function generateCalendar(year, month) {
+            calendarBody.innerHTML = ''; 
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            currentMonthElement.textContent = `${month + 1}/${year}`;
+            
+            let day = 1;
+            for (let i = 0; i < 6; i++) {
+                const tr = document.createElement('tr');
+                for (let j = 0; j < 7; j++) {
+                    const td = document.createElement('td');
+                    if (i === 0 && j < firstDay) {
+                        td.textContent = '';
+                    } else if (day > daysInMonth) {
+                        break;
+                    } else {
+                        td.textContent = day;
+                       // td.addEventListener('click', function() {
+                           // showEventModal(day);
+                       // });
+                        day++;
+                    }
+                    tr.appendChild(td);
+                }
+                calendarBody.appendChild(tr);
+            }
+        }
+
+       
+       // prevMonthBtn.addEventListener('click', function() {
+       //     currentDate.setMonth(currentDate.getMonth() - 1);
+        //    generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
+     //   });
+
+        nextMonthBtn.addEventListener('click', function() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
+        }); 
+    }); 
+</script>
+
+</body>
+</html>
+
+{% endblock %}

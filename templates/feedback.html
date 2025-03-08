@@ -1,0 +1,73 @@
+{% extends "base.html" %} {% block title %}program{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planner Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+        }
+        h2 {
+            text-align: center;
+        }
+        .feedback-form {
+            text-align: center;
+        }
+        .feedback-form textarea {
+            width: 80%;
+            height: 100px;
+            margin: 10px auto;
+            display: block;
+        }
+        .feedback-form input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        nav{
+            display: inline-flex;
+            float: none;
+            text-align: center;
+        }
+    </style>
+   
+</head>
+<body>
+    <div class="container">
+        <h2>Feedback</h2>
+        <form class="feedback-form" action="/feedback" method="POST">
+            <label for="experience">How would you rate your planner experience?</label><br>
+            <select name="experience" id="experience">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select><br><br>
+            <label for="feedback">Feedback:</label><br>
+            <textarea name="feedback" id="feedback" placeholder="Your feedback..."></textarea><br><br>
+            <input type="submit" value="Submit Feedback">
+        </form>
+    </div>
+</body>
+</html>
+
+{% endblock %}
