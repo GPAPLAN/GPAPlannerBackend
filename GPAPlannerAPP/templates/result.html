@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GPA Calculation Result</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'styleResults.css')}}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    
+    <h1>gpa calculation results</h1>
+
+   <div>
+        <h2> Your Trend and Pie chart are ready below!</h2>
+        <p>your current GPA: {{ current_gpa }}</p>
+        <p> your goal GPA: {{ goal_gpa }}</p>
+        <p>Required GPA per semester: {{ required_gpa }}.</p>
+        <p> check your account profile to view this in letter grade form </p>
+        {% if required_gpa > 4.0 %}
+            <p>{{ required_grade_message }}</p>
+        {% else %}
+            <canvas id="gpaChart" width="400" height="200"></canvas>
+        {% endif %}
+    </div>
+    <div>
+        <h2>credits information </h2>
+        <p>you have earned {{ completed_credits }} credits and need {{ remaining_credits}} more to graduate</p>
+        <canvas id="creditsPieChart" width="200" height="200"></canvas>
+    </div>
+
+    <script>
+        {% if current_gpa is defined and required_gpa is defined and completed_credits is defined and remaining_credits is defined %}
+
+        var currentGPA = {{ current_gpa }};
+        var requiredGPA = {{ required_gpa }};
+        var earnedCredits = {{ completed_credits }};
+        var remainingCredits = {{ remaining_credits }};
+
+        var ctxGPA = document.getElementById('gpaChart').getContext('2d');
+        var gpaChart = new Chart(ctxGPA, {
+            type: 'line',
+            data: {
+                labels: ['Current gpa', 'required gpa'],
+                datasets:[{
+                    label: 'gpa trend',
+                    data: [currentGPA, requiredGPA],
+                    backgroundColor:['rgba(255, 99, 132, 0.2)','rgba(54, 162, 235, 0.2)' ],
+                    borderColor: ['rgba(255, 99, 132, 1)','rgba(54, 162, 235, 1)' ]
+                }]
+            },
+            options: {
+                scales:{
+                    y:{
+                        beginAtZero: false,
+                        suggestedMin: 0,
+                        suggestedMax: 4.0
+                    }
+                }
+            }
+        });
+
+        var ctxCreditsPie = document.getElementById('creditsPieChart').getContext('2d');
+        var creditsPieChart = new Chart(ctxCreditsPie, {
+            type: 'pie',
+            data: {
+                labels: ['completed credits', 'remaining credits'],
+                datasets: [{
+                    data: [earnedCredits, remainingCredits],
+                    backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 205, 86, 0.2)'],
+                    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 205, 86, 1)'],
+                    borderWidth: 1
+                }]
+            }
+        });
+        {% else %}
+            console.log("dat is missing or incomplete. cannot generate charts");
+        {% endif %}
+    </script>
+
+    <a href="/program">Go Back</a>
+</body>
+</html>

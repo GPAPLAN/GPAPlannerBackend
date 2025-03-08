@@ -1,0 +1,41 @@
+{% extends "base.html" %} {% block title %}login{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'loginStyle.css')}}">
+<style>
+body{
+    background-image: url('static/pexels-steve-1789968.jpg');
+  }
+  
+</style>
+<div class="container">
+<form method="POST">
+    <h3 align="center">login</h3>
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        name="email"
+        placeholder="Enter email" />
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          name="password"
+          placeholder="Enter password"/>
+        </div>
+        <br />
+        <a class="nav-item nav-link" id="signUp" href="/signup">Sign Up</a>
+        <a class="nav-item nav-link" id="getEmail" href="/request-reset">reset password</a>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    </div>
+{% endblock %}

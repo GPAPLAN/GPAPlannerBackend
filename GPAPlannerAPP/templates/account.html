@@ -1,0 +1,31 @@
+{% extends "base.html" %} {% block title %}Changed{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="static/accountStyle.css"><body>
+
+<div class="background">
+    <h1> My Profile</h1>
+{{ current_user.first_name }} {{ current_user.last_name }}<br>
+{{ current_user.email }}
+<br>
+<strong>Goal GPA:</strong> {{ goal_gpa }}
+<br>
+<strong>Current GPA:</strong> {{ current_gpa }}
+<br>
+<strong>Completed Credits:</strong> {{ completed_credits }}
+<br>
+<strong>Remaining Credits:</strong> {{ remaining_credits }}
+
+
+<p> <strong>Target Grade: </strong> {{ required_grade_message }} </p>
+</div>
+
+<style>
+body{
+    background-image: url('static/pexels-anniroenkae-2832382.jpg');
+}
+</style>
+/body>
+{% endblock %}
+

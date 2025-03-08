@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block title %}program{% endblock %}
+
+{% block content %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>notes</title>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>lesson Journal</h1>
+        <form action="{{ url_for('auth.notes') }}" method="POST">
+                <textarea name="content" class="form-control" placeholder="what'd you learn today..."></textarea>
+                <button type="submit" class="btn btn-primary">add notes </button>
+
+        </form>
+        <ul class="list-group mt-3">
+            {% for note in notes %}
+            <li class="list-group-item">
+                {{ note.content }}
+                <small class="float-right">{{ note.datetime.strftime('%Y-%m-%d %H:%M') }}</small>
+                <form action="{{ url_for('auth.delete_note', note_id=note.id) }}" method="POST">
+                    <button type="submit" class="btn btn-danger btn-sm float-right ml-2"> delete note</button>
+                </form>
+            </li>
+            {% endfor %}
+            </ul>
+    </div>
+
+
+
+        </ul>
+
+
+
+
+
+
+    </div>
+    <style>
+        body{
+            background-image: url('static/pexels-steve-1789968.jpg');
+          }
+        </style>
+    
+</body>
+</html>
+
+{% endblock %}

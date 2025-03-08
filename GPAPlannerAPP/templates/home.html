@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="static/homeStyles.css">
+
+    <title>{% block title %}Home{% endblock %}</title>
+  </head>
+  <body>
+    <style>
+      .bg-orange{
+        background-color: rgb(255, 72, 0);
+      }
+
+      
+
+      .navbar-border{
+        border-bottom: 3px solid black;
+      }
+      body {
+  height: 100vh;
+   background: linear-gradient(90deg,#e52e71,#ff8a00);
+
+}
+
+.slider-thumb::before {
+  position: absolute;
+  content: "";
+  left: 30%;
+  top: 20%;
+  width: 450px;
+  height: 450px;
+  background: #17141d;
+  border-radius: 62% 47% 82% 35% / 45% 45% 80% 66%;
+  will-change: border-radius, transform, opacity;
+  animation: sliderShape 5s linear infinite;
+  display: block;
+  z-index: -1;
+  -webkit-animation: sliderShape 5s linear infinite;
+}
+@keyframes sliderShape{
+  0%,100%{
+  border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+    transform: translate3d(0,0,0) rotateZ(0.01deg);
+  }
+  34%{
+      border-radius: 70% 30% 46% 54% / 30% 29% 71% 70%;
+    transform:  translate3d(0,5px,0) rotateZ(0.01deg);
+  }
+  50%{
+    transform: translate3d(0,0,0) rotateZ(0.01deg);
+  }
+  67%{
+    border-radius: 100% 60% 60% 100% / 100% 100% 60% 60% ;
+    transform: translate3d(0,-3px,0) rotateZ(0.01deg);
+  }
+}
+    </style>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-orange navbar-border">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbar"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar">
+        <div class="navbar-nav">
+          {% if current_user.is_authenticated %}
+          <h3 class="whitefont"> Hello {{ current_user.first_name }} {{ current_user.last_name }}!</h1>
+          <!--<a class="nav-item nav-link" id="home" href="/">Home</a> -->
+          <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+          <!-- <a class="nav-item nav-link" id="program" href="/program">GPA Planner</a>
+          <a class="nav-item nav-link" id="rapidtable" href="/rapidtable">Class Grade Estimator</a>
+          <a class="nav-item nav-link" id="notes" href="/notes">My Class Notes</a>
+          <a class="nav-item nav-link" id="youtube" href="/search">Subject Video Search</a> -->
+          <a class="nav-item nav-link" id="youtube" href="/info_page">Info</a>
+          <a class="nav-item nav-link" id="youtube" href="/account">My Account</a>
+          <a class="nav-item nav-link" id="calendar" href="/calendar">My Calendar</a>
+
+
+          {% else %}
+          <a class="nav-item nav-link" id="login" href="/login">Login</a>
+          <a class="nav-item nav-link" id="signUp" href="/signup">Sign Up</a>
+          <a class="nav-item nav-link" id="resetpasswordRequest" href="/reset_password_request">reset password</a>
+
+          {% endif %}
+        
+        </div>
+      </div>
+    </nav>
+
+    {%with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+      {% if category == 'error'%}
+      <div class="alert alert-danger alert-dismissable fade show" role ="alert">
+        {{ message }}
+        <button type ="button" class="close" data-dismiss="alert">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% else %}
+      <div class="alert alert-success alert-dismissable fade show" role ="alert">
+        {{ message }}
+        <button type ="button" class="close" data-dismiss="alert">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endif %}
+      {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
+<div class = "container">
+  {% block content %}
+  {% endblock %}
+
+
+</div>
+    
+   
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+
+    {% block javascript %}
+    <script type="text/javascript">
+
+    function deleteNote(noteId) {
+      fetch('/delete-note', {
+          method: 'POST',
+          body: JSON.stringify({ noteId: noteId}),
+      }).then((_res) => {
+          window.location.hfer = "/";
+      });
+       
+  }
+  </script>
+
+  {% endblock %}
+
+  <h1 class="title">Welcome to your GPA Planning space!</h1>
+
+
+  <!--<h4>GPA planner</h4>
+
+  <hr style="margin-top: 25.5em;">
+  <hr style="color:gray;background-color:solid black">
+
+<h2>Class Grade</h2>
+  -->
+<div class="grid-container">
+<div class="square" id="img1">
+  <h2><a class="videoLink"href="/search">Subject Video Search</a></h2>
+  <a href="/search"><img src="static/search_hw.jpeg" alt="Image 1" ></a>
+  
+</div>
+<div class="square" id="img2">
+  <h2><a  href="/program">GPA Planner</a>
+  <a href="/program"> <img src="static/gpaplan.png"alt="Image 2" ></a>
+  
+  
+</div>
+<div class="square" id="img3">
+  <h2><a href="/notes">My Class Notes</a></h2>
+  <a href="/notes">  <img src="static/classNotes.png" alt="Image 3" ></a>
+  
+</div>
+<div class="square" id="img4">
+  <h2><a href="/rapidtable">Class Grade Estimator</a></h2>
+  <a href="/rapidtable"> <img src="static/Class_Grade_Estimator.webp" alt="Image 4"></a>
+
+</div>
+
+  
+</div>
+
+
+
+  </body>
+</html>
