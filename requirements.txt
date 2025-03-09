@@ -1,4 +1,5 @@
 flask
+flask_mail
 flask_login
 sendgrid
 gunicorn
