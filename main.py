@@ -1,5 +1,6 @@
 from GPAPlannerAPP import create_app
 from flask import Flask, render_template
+import os
 
 app = create_app()
 
