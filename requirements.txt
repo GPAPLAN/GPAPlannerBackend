@@ -1,5 +1,6 @@
 flask
 flask_login
+sendgrid
 gunicorn
 werkzeug
 google-api-python-client
