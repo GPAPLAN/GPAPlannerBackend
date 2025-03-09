@@ -1,7 +1,10 @@
 flask
+flask_login
 gunicorn
 werkzeug
 google-api-python-client
+SQLAlchemy
+itsdangerous
 flask_sqlalchemy
 flask_cors
 email-validator
